@@ -42,6 +42,7 @@ const char *Triple::getArchTypeName(ArchType Kind) {
   case xcore:   return "xcore";
   case mblaze:  return "mblaze";
   case ptx:     return "ptx";
+  case mdsp:	return "mdsp";
   }
 
   return "<invalid>";
@@ -75,6 +76,8 @@ const char *Triple::getArchTypePrefix(ArchType Kind) {
   case xcore:   return "xcore";
 
   case ptx:     return "ptx";
+
+  case mdsp: 	return "mdsp";
   }
 }
 
@@ -165,6 +168,9 @@ Triple::ArchType Triple::getArchTypeForLLVMName(StringRef Name) {
   if (Name == "ptx")
     return ptx;
 
+  if (Name == "mdsp")
+    return mdsp;
+
   return UnknownArch;
 }
 
@@ -205,6 +211,9 @@ Triple::ArchType Triple::getArchTypeForDarwinArchName(StringRef Str) {
   if (Str == "ptx")
     return Triple::ptx;
 
+  if (Str == "mdsp")
+    return Triple::mdsp;
+
   return Triple::UnknownArch;
 }
 
@@ -237,6 +246,8 @@ const char *Triple::getArchNameForAssembler() {
     return "armv7";
   if (Str == "ptx")
     return "ptx";
+  if (Str == "mdsp")
+    return "mdsp";
   return NULL;
 }
 
@@ -287,6 +298,8 @@ Triple::ArchType Triple::ParseArch(StringRef ArchName) {
     return xcore;
   else if (ArchName == "ptx")
     return ptx;
+  else if (ArchName == "mdsp")
+    return mdsp;
   else
     return UnknownArch;
 }
