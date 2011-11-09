@@ -65,6 +65,7 @@ public:
     xcore,   // XCore: xcore
     mblaze,  // MBlaze: mblaze
     ptx,     // PTX: ptx
+    mdsp,	 // MDSP: mdsp
 
     InvalidArch
   };
