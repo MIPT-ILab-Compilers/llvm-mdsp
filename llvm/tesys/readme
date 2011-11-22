@@ -1,0 +1,14 @@
+TEsting SYStem(TESYS)
+
+LLVM backend for MDSP has own testing system. It contains perl scripts for building,
+running and testing backend.
+
+Main Scripts:
+ 1. test.pl - script for building, committing, testing backend
+ 2. build.pl - build project or tool
+ 3. run.pl - run backend with tests or test suites
+
+Auxiliary Scripts:
+ 1. echo.pl - used for catching makefile output
+
+

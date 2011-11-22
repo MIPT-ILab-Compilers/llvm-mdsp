@@ -23,14 +23,13 @@ if ($help) {
 	exit;
 }
 
-$LLVM_Root = `cd $LLVM_Root && pwd`;
-
-chomp $LLVM_Root;
 chdir $LLVM_Root;
 
-$LogPath = ">>".$LLVM_Root."/tesys/".$LogPath;
+$LLVM_Root = `pwd`;
 
-print $LogPath;
+chomp $LLVM_Root;
+
+$LogPath = ">>".$LLVM_Root."/tesys/".$LogPath;
 
 if ($clean) {
 
@@ -53,14 +52,13 @@ if ($clean) {
 
 			$errcode = $?;
 
-			print "ERROR: Code $errcode";
-
 			if ($errcode) {
 				open BuildReport, $LogPath;
 				print BuildReport "ERROR: Cleaning tool $tool with error code $errcode\n";
 				close BuildReport;
 
 				print "ERROR: Cleaning tool $tool\n";
+				exit 1;
 				last;
 			}
 		}
@@ -85,41 +83,51 @@ if ($clean) {
 			close BuildReport;
 
 			print "ERROR: Cleaning all\n";
+
+			exit 1;
 		}
 	}
 	
 	print "Cleaning Successfully completed!\n";
+	exit 0;
 }
 elsif ($tool) {
 	print "Tool\t\t$tool\n";
 	
 	$Options .= "\"ONLY_TOOLS=". join(" ", split(/,/, $tool)) . "\"";
-	$cmd = "make -j 2 -f $LLVM_Root/Makefile $Options";
+}
+else {
+	system "$LLVM_Root/configure";
 
+	if ($?) {
+		print "ERROR[$?]: Cannot configure llvm!\n";
+		exit 1;
+	}
+}
+
+$cmd = "make -j 2 -f $LLVM_Root/Makefile $Options";
+
+open BuildReport, $LogPath;
+print BuildReport "Date:\t".`date`;
+print BuildReport "Options:\t$Options\n";
+print BuildReport "Command:\t$cmd\n";
+close BuildReport;
+
+chdir $LLVM_Root;
+system $cmd;
+
+$errcode = $?;
+
+print "ErrCode: $?\n";
+
+if ($errcode) {
 	open BuildReport, $LogPath;
-	print BuildReport "Date:\t".`date`;
-	print BuildReport "Options:\t$Options\n";
-	print BuildReport "Command:\t$cmd\n";
+	print BuildReport "ERROR: Building tools was failed with error code $errcode\n";
 	close BuildReport;
 
-	chdir $LLVM_Root;
-	system $cmd;
-
-	$errcode = $?;
-
-	print "ErrCode: $?\n";
-
-	if ($errcode) {
-		open BuildReport, $LogPath;
-		print BuildReport "ERROR: Building tools was failed with error code $errcode\n";
-		close BuildReport;
-
-		print "ERROR: Building Tools!\n";
-	} else {
-		print "Building successfully completed!\n";
-	}
+	print "ERROR: Building Tools!\n";
 } else {
-	print $usage;
+	print "Building successfully completed!\n";
 }
 
 exit $errcode;

@@ -13,7 +13,14 @@ if ($#ARGV == -1) {
 GetOptions('help' => \$help, 'commit' => \$commit, 'msg=s' => \$msg);
 
 if ($commit) {
-	print "Commit\t\t[Ok]\n";
+	system "./build.pl";
+
+	if ($?) {
+		print "Cannot commit because build.pl completed with fail!\n";
+		exit 1;
+	}
+	else {
+	}
 }
 elsif ($msg) {
 	print "Message:\t$msg\n";
