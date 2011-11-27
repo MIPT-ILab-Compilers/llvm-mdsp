@@ -9,9 +9,29 @@
 namespace llvm {
 
 namespace {     // Register classes...
+  // APR Register Class...
+  static const unsigned APR[] = {
+    MDSP::APR0, MDSP::APR1, MDSP::APR2, MDSP::APR3, MDSP::APR4, MDSP::APR5, MDSP::APR6, MDSP::APR7, 
+  };
+
+  // FLAGS Register Class...
+  static const unsigned FLAGS[] = {
+    P_FLAGS, S_FLAGS, 
+  };
+
   // GPR Register Class...
   static const unsigned GPR[] = {
     MDSP::GPR0, MDSP::GPR1, MDSP::GPR2, MDSP::GPR3, MDSP::GPR4, MDSP::GPR5, MDSP::GPR6, MDSP::GPR7, MDSP::GPR8, MDSP::GPR9, MDSP::GPR10, MDSP::GPR11, MDSP::GPR12, MDSP::GPR13, MDSP::GPR14, MDSP::GPR15, MDSP::GPR16, MDSP::GPR17, MDSP::GPR18, MDSP::GPR19, MDSP::GPR20, MDSP::GPR21, MDSP::GPR22, MDSP::GPR23, MDSP::GPR24, MDSP::GPR25, MDSP::GPR26, MDSP::GPR27, MDSP::GPR28, MDSP::GPR29, MDSP::GPR30, MDSP::GPR31, 
+  };
+
+  // APRVTs Register Class Value Types...
+  static const EVT APRVTs[] = {
+    MVT::i16, MVT::Other
+  };
+
+  // FLAGSVTs Register Class Value Types...
+  static const EVT FLAGSVTs[] = {
+    MVT::i16, MVT::Other
   };
 
   // GPRVTs Register Class Value Types...
@@ -21,13 +41,35 @@ namespace {     // Register classes...
 
 }  // end anonymous namespace
 
-namespace GPR {   // Register class instances
+namespace APR {   // Register class instances
+  APRClass	APRRegClass;
+  FLAGSClass	FLAGSRegClass;
   GPRClass	GPRRegClass;
 
   static const TargetRegisterClass* const NullRegClasses[] = { NULL };
 
+  // APR Register Class sub-classes...
+  static const TargetRegisterClass* const APRSubclasses[] = {
+    NULL
+  };
+
+  // FLAGS Register Class sub-classes...
+  static const TargetRegisterClass* const FLAGSSubclasses[] = {
+    NULL
+  };
+
   // GPR Register Class sub-classes...
   static const TargetRegisterClass* const GPRSubclasses[] = {
+    NULL
+  };
+
+  // APR Register Class super-classes...
+  static const TargetRegisterClass* const APRSuperclasses[] = {
+    NULL
+  };
+
+  // FLAGS Register Class super-classes...
+  static const TargetRegisterClass* const FLAGSSuperclasses[] = {
     NULL
   };
 
@@ -37,11 +79,17 @@ namespace GPR {   // Register class instances
   };
 
 
+APRClass::APRClass()  : TargetRegisterClass(APRRegClassID, "APR", APRVTs, APRSubclasses, APRSuperclasses, NullRegClasses, NullRegClasses, 2, 1, 1, APR, APR + 8) {}
+
+FLAGSClass::FLAGSClass()  : TargetRegisterClass(FLAGSRegClassID, "FLAGS", FLAGSVTs, FLAGSSubclasses, FLAGSSuperclasses, NullRegClasses, NullRegClasses, 2, 0, 1, FLAGS, FLAGS + 2) {}
+
 GPRClass::GPRClass()  : TargetRegisterClass(GPRRegClassID, "GPR", GPRVTs, GPRSubclasses, GPRSuperclasses, NullRegClasses, NullRegClasses, 2, 4, 1, GPR, GPR + 32) {}
 }
 
 namespace {
   const TargetRegisterClass* const RegisterClasses[] = {
+    &APR::APRRegClass,
+    &FLAGS::FLAGSRegClass,
     &GPR::GPRRegClass,
   };
 
@@ -59,6 +107,14 @@ MDSP::NoRegister, MDSP::NoRegister };
 
 
   // Register Overlap Lists...
+  const unsigned APR0_Overlaps[] = { MDSP::APR0, 0 };
+  const unsigned APR1_Overlaps[] = { MDSP::APR1, 0 };
+  const unsigned APR2_Overlaps[] = { MDSP::APR2, 0 };
+  const unsigned APR3_Overlaps[] = { MDSP::APR3, 0 };
+  const unsigned APR4_Overlaps[] = { MDSP::APR4, 0 };
+  const unsigned APR5_Overlaps[] = { MDSP::APR5, 0 };
+  const unsigned APR6_Overlaps[] = { MDSP::APR6, 0 };
+  const unsigned APR7_Overlaps[] = { MDSP::APR7, 0 };
   const unsigned GPR0_Overlaps[] = { MDSP::GPR0, 0 };
   const unsigned GPR1_Overlaps[] = { MDSP::GPR1, 0 };
   const unsigned GPR2_Overlaps[] = { MDSP::GPR2, 0 };
@@ -91,6 +147,8 @@ MDSP::NoRegister, MDSP::NoRegister };
   const unsigned GPR29_Overlaps[] = { MDSP::GPR29, 0 };
   const unsigned GPR30_Overlaps[] = { MDSP::GPR30, 0 };
   const unsigned GPR31_Overlaps[] = { MDSP::GPR31, 0 };
+  const unsigned P_FLAGS_Overlaps[] = { P_FLAGS, 0 };
+  const unsigned S_FLAGS_Overlaps[] = { S_FLAGS, 0 };
 
 
   // Register Sub-registers Sets...
@@ -99,6 +157,14 @@ MDSP::NoRegister, MDSP::NoRegister };
 
   const TargetRegisterDesc RegisterDescriptors[] = { // Descriptors
     { "NOREG",	0,	0,	0 },
+    { "APR0",	APR0_Overlaps,	Empty_SubRegsSet,	Empty_SuperRegsSet },
+    { "APR1",	APR1_Overlaps,	Empty_SubRegsSet,	Empty_SuperRegsSet },
+    { "APR2",	APR2_Overlaps,	Empty_SubRegsSet,	Empty_SuperRegsSet },
+    { "APR3",	APR3_Overlaps,	Empty_SubRegsSet,	Empty_SuperRegsSet },
+    { "APR4",	APR4_Overlaps,	Empty_SubRegsSet,	Empty_SuperRegsSet },
+    { "APR5",	APR5_Overlaps,	Empty_SubRegsSet,	Empty_SuperRegsSet },
+    { "APR6",	APR6_Overlaps,	Empty_SubRegsSet,	Empty_SuperRegsSet },
+    { "APR7",	APR7_Overlaps,	Empty_SubRegsSet,	Empty_SuperRegsSet },
     { "GPR0",	GPR0_Overlaps,	Empty_SubRegsSet,	Empty_SuperRegsSet },
     { "GPR1",	GPR1_Overlaps,	Empty_SubRegsSet,	Empty_SuperRegsSet },
     { "GPR2",	GPR2_Overlaps,	Empty_SubRegsSet,	Empty_SuperRegsSet },
@@ -131,6 +197,8 @@ MDSP::NoRegister, MDSP::NoRegister };
     { "GPR29",	GPR29_Overlaps,	Empty_SubRegsSet,	Empty_SuperRegsSet },
     { "GPR30",	GPR30_Overlaps,	Empty_SubRegsSet,	Empty_SuperRegsSet },
     { "GPR31",	GPR31_Overlaps,	Empty_SubRegsSet,	Empty_SuperRegsSet },
+    { "P_FLAGS",	P_FLAGS_Overlaps,	Empty_SubRegsSet,	Empty_SuperRegsSet },
+    { "S_FLAGS",	S_FLAGS_Overlaps,	Empty_SubRegsSet,	Empty_SuperRegsSet },
   };
 
   const char *const SubRegIndexTable[] = { "" };
@@ -161,7 +229,7 @@ unsigned MDSPGenRegisterInfo::composeSubRegIndices(unsigned IdxA, unsigned IdxB)
 }
 
 MDSPGenRegisterInfo::MDSPGenRegisterInfo(int CallFrameSetupOpcode, int CallFrameDestroyOpcode)
-  : TargetRegisterInfo(RegisterDescriptors, 33, RegisterClasses, RegisterClasses+1,
+  : TargetRegisterInfo(RegisterDescriptors, 43, RegisterClasses, RegisterClasses+3,
                  SubRegIndexTable,
                  CallFrameSetupOpcode, CallFrameDestroyOpcode,
                  SubregHashTable, SubregHashTableSize,
@@ -178,6 +246,22 @@ int MDSPGenRegisterInfo::getDwarfRegNumFull(unsigned RegNum, unsigned Flavour) c
     default:
       assert(0 && "Invalid RegNum");
       return -1;
+    case MDSP::APR0:
+      return 0;
+    case MDSP::APR1:
+      return 1;
+    case MDSP::APR2:
+      return 2;
+    case MDSP::APR3:
+      return 3;
+    case MDSP::APR4:
+      return 4;
+    case MDSP::APR5:
+      return 5;
+    case MDSP::APR6:
+      return 6;
+    case MDSP::APR7:
+      return 7;
     case MDSP::GPR0:
       return 0;
     case MDSP::GPR1:
@@ -242,6 +326,10 @@ int MDSPGenRegisterInfo::getDwarfRegNumFull(unsigned RegNum, unsigned Flavour) c
       return 30;
     case MDSP::GPR31:
       return 31;
+    case P_FLAGS:
+      return -1;
+    case S_FLAGS:
+      return -1;
     };
   };
 }

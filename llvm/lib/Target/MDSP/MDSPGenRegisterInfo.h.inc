@@ -22,11 +22,23 @@ struct MDSPGenRegisterInfo : public TargetRegisterInfo {
   unsigned composeSubRegIndices(unsigned, unsigned) const;
 };
 
-namespace GPR { // Register classes
+namespace APR { // Register classes
   enum {
-    GPRRegClassID = 0
+    APRRegClassID = 0,
+    FLAGSRegClassID = 1,
+    GPRRegClassID = 2
   };
 
+  struct APRClass : public TargetRegisterClass {
+    APRClass();
+  };
+  extern APRClass	APRRegClass;
+  static TargetRegisterClass * const APRRegisterClass = &APRRegClass;
+  struct FLAGSClass : public TargetRegisterClass {
+    FLAGSClass();
+  };
+  extern FLAGSClass	FLAGSRegClass;
+  static TargetRegisterClass * const FLAGSRegisterClass = &FLAGSRegClass;
   struct GPRClass : public TargetRegisterClass {
     GPRClass();
   };

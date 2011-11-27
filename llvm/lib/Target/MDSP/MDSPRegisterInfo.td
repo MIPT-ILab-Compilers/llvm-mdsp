@@ -12,11 +12,16 @@
 //===----------------------------------------------------------------------===//
 
 class MDSPReg<string n> : Register<n> {
-	field bits<5> Num;
 	let Namespace  = "MDSP";
 }
 
 class RegGPR<bits<5> num, string n> : MDSPReg<n> {
+	field bits<5> Num;
+	let Num = num;
+}
+
+class RegAPR<bits<3> num, string n> : MDSPReg<n> {
+	field bits<3> Num;
 	let Num = num;
 }
 
@@ -57,11 +62,33 @@ def GPR29 : RegGPR<29, "GPR29">,  DwarfRegNum<[29]>;
 def GPR30 : RegGPR<30, "GPR30">,  DwarfRegNum<[30]>;
 def GPR31 : RegGPR<31, "GPR31">,  DwarfRegNum<[31]>;
 
+def APR0 : RegAPR<0, "APR0">, DwarfRegNum<[0]>;
+def APR1 : RegAPR<1, "APR1">, DwarfRegNum<[1]>;
+def APR2 : RegAPR<2, "APR2">, DwarfRegNum<[2]>;
+def APR3 : RegAPR<3, "APR3">, DwarfRegNum<[3]>;
+def APR4 : RegAPR<4, "APR4">, DwarfRegNum<[4]>;
+def APR5 : RegAPR<5, "APR5">, DwarfRegNum<[5]>;
+def APR6 : RegAPR<6, "APR6">, DwarfRegNum<[6]>;
+def APR7 : RegAPR<7, "APR7">, DwarfRegNum<[7]>;
+
+def P_FLAGS : Register<"P_FLAGS">;
+def S_FLAGS : Register<"S_FLAGS">;
+
 def GPR : RegisterClass<"GPR", [i16], 32, [
 			GPR0,  GPR1,  GPR2,  GPR3,  GPR4,  GPR5,  GPR6,  GPR7,
 			GPR8,  GPR9,  GPR10, GPR11, GPR12, GPR13, GPR14, GPR15,
 			GPR16, GPR17, GPR18, GPR19, GPR20, GPR21, GPR22, GPR23,
 			GPR24, GPR25, GPR26, GPR27, GPR28, GPR29, GPR30, GPR31
+			]> {
+}
+
+def APR : RegisterClass<"APR", [i16], 8, [
+			APR0, APR1, APR2, APR3, APR4, APR5, APR6, APR7
+			]> {
+}
+
+def FLAGS : RegisterClass<"FLAGS", [i16], 2, [
+			P_FLAGS, S_FLAGS
 			]> {
 }
 
