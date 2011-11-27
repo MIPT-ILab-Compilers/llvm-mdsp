@@ -11,6 +11,10 @@ LEVEL = ../../..
 LIBRARYNAME = LLVMMDSPCodeGen
 TARGET = MDSP
 
+BUILT_SOURCES = MDSPGenRegisterInfo.h.inc MDSPGenRegisterNames.inc MDSPGenRegisterInfo.inc\
+		MDSPGenInstrInfo.inc MDSPGenRegisterNames.inc\
+		MDSPGenCallingConv.inc
+
 DIRS = TargetInfo
 
 include $(LEVEL)/Makefile.common
