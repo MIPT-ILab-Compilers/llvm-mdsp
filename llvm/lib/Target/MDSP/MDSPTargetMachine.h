@@ -29,6 +29,10 @@ public:
   MDSPTargetMachine (const Target &T, const std::string &TT, const std::string &FS);
 
   virtual const TargetData       *getTargetData() const { return &DataLayout; }
+
+  // Pass Pipeline Configuration
+  virtual bool addInstSelector(PassManagerBase &PM, CodeGenOpt::Level OptLevel);
+  virtual bool addPreEmitPass(PassManagerBase &PM, CodeGenOpt::Level OptLevel);
 };
 
 } // end namespace llvm

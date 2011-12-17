@@ -37,6 +37,17 @@ MDSPTargetMachine::MDSPTargetMachine (const Target &T, const std::string &TT,
 {
 }
 
+bool MDSPTargetMachine::addInstSelector(PassManagerBase &PM,
+                                        CodeGenOpt::Level OptLevel)
+{
+  return false;
+}
+
+bool MDSPTargetMachine::addPreEmitPass(PassManagerBase &PM,
+                                       CodeGenOpt::Level OptLevel)
+{
+  return true;
+}
 
 extern "C" void LLVMInitializeMDSPTarget()
 {

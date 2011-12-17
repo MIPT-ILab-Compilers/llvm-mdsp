@@ -1,4 +1,8 @@
-// MDSP
+//===- MDSPInstrFormats.td - MDSP Instruction Formats ------*- tablegen -*-===//
+// 
+//                     The LLVM Compiler Infrastructure
+//
+//===----------------------------------------------------------------------===//
 
 class InstMDSP<dag outs, dag ins, string asmstr, list<dag> pattern> : Instruction {
   field bits<32> Inst;

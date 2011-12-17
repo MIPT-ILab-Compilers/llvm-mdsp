@@ -1,5 +1,19 @@
-///
+//===- MDSPInstrInfo.td - Target Description for MDSP Target --------------===//
+// 
+//                     The LLVM Compiler Infrastructure
+// 
+//===----------------------------------------------------------------------===//
+//
+// This file describes the MDSP instructions in TableGen format.
+//
+//===----------------------------------------------------------------------===//
+
+//===----------------------------------------------------------------------===//
+// Instruction format superclass
+//===----------------------------------------------------------------------===//
+
 include "MDSPInstrFormats.td"
+
 // Addressing modes.
 def ADDRrr : ComplexPattern<i32, 2, "SelectADDRrr", [], []>;
 def ADDRri : ComplexPattern<i32, 2, "SelectADDRri", [frameindex], []>;
