@@ -11,6 +11,7 @@
 //===----------------------------------------------------------------------===//
 
 #include "MDSP.h"
+#include "MDSPMCAsmInfo.h"
 #include "MDSPTargetMachine.h"
 #include "llvm/PassManager.h"
 #include "llvm/Target/TargetRegistry.h"
@@ -19,21 +20,12 @@
 using namespace llvm;
 
 
-//extern "C" void LLVMInitializeMDSPTargetInfo ()
-//{
-//	 RegisterTarget<Triple::mdsp, false> X(TheMDSPTarget, "mdsp", "MDSP");
-//}
-
 /// MDSPTargetMachine ctor - Create an ILP32 architecture model
 
 MDSPTargetMachine::MDSPTargetMachine (const Target &T, const std::string &TT,
 									  const std::string &FS)
   : llvm::LLVMTargetMachine	(T, TT),
     DataLayout			("e-P:32:32-F128:128:128")
-    //Subtarget(TT, FS, is64bit),
-
-  //  TLInfo(*this), TSInfo(*this), InstrInfo(Subtarget),
-   // FrameLowering(Subtarget)
 {
 }
 
@@ -42,16 +34,18 @@ bool MDSPTargetMachine::addInstSelector(PassManagerBase &PM,
 {
   return false;
 }
-
+/*
 bool MDSPTargetMachine::addPreEmitPass(PassManagerBase &PM,
                                        CodeGenOpt::Level OptLevel)
 {
   return true;
 }
+*/
 
 extern "C" void LLVMInitializeMDSPTarget()
 {
-  // Register the target.
   RegisterTargetMachine <MDSPTargetMachine> X(TheMDSPTarget);
+
+  RegisterAsmInfo<MDSPMCAsmInfo> A(TheMDSPTarget);
 }
 

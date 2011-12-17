@@ -9,7 +9,7 @@ namespace llvm {
   extern Target TheMDSPTarget;
 } // end namespace llvm
 
-
-
+#include "MDSPGenRegisterNames.inc"
+#include "MDSPGenInstrNames.inc"
 
 #endif
