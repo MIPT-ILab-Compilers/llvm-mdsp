@@ -14,6 +14,7 @@
 #ifndef MDSPTARGETMACHINE_H
 #define MDSPTARGETMACHINE_H
 
+#include "MDSPSelectionDAGInfo.h"
 #include "llvm/Target/TargetMachine.h"
 #include "llvm/Target/TargetData.h"
 #include "llvm/Target/TargetFrameLowering.h"
