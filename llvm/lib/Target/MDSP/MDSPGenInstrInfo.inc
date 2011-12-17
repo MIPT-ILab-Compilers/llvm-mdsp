@@ -14,6 +14,9 @@ static const TargetOperandInfo OperandInfo3[] = { { -1, 0, 0 }, { -1, 0, 0 }, { 
 static const TargetOperandInfo OperandInfo4[] = { { -1, 0, 0 }, { -1, 0, ((0 << 16) | (1 << TOI::TIED_TO)) }, { -1, 0, 0 }, { -1, 0, 0 }, };
 static const TargetOperandInfo OperandInfo5[] = { { -1, 0, 0 }, { -1, 0, 0 }, { -1, 0, 0 }, { -1, 0, 0 }, };
 static const TargetOperandInfo OperandInfo6[] = { { -1, 0, 0 }, { -1, 0, 0 }, };
+static const TargetOperandInfo OperandInfo7[] = { { GPR::GPRRegClassID, 0, 0 }, { GPR::GPRRegClassID, 0, 0 }, { -1, 0, 0 }, };
+static const TargetOperandInfo OperandInfo8[] = { { GPR::GPRRegClassID, 0, 0 }, { GPR::GPRRegClassID, 0, 0 }, { GPR::GPRRegClassID, 0, 0 }, };
+static const TargetOperandInfo OperandInfo9[] = { { GPR::GPRRegClassID, 0, 0 }, { -1, 0, 0 }, { GPR::GPRRegClassID, 0, 0 }, };
 
 static const TargetInstrDesc MDSPInsts[] = {
   { 0,	0,	0,	0,	"PHI", 0|(1<<TID::Variadic)|(1<<TID::UnmodeledSideEffects), 0x0ULL, NULL, NULL, NULL, 0 },  // Inst #0 = PHI
@@ -30,5 +33,9 @@ static const TargetInstrDesc MDSPInsts[] = {
   { 11,	0,	0,	0,	"DBG_VALUE", 0|(1<<TID::Variadic), 0x0ULL, NULL, NULL, NULL, 0 },  // Inst #11 = DBG_VALUE
   { 12,	1,	1,	0,	"REG_SEQUENCE", 0|(1<<TID::Variadic)|(1<<TID::CheapAsAMove), 0x0ULL, NULL, NULL, NULL, OperandInfo2 },  // Inst #12 = REG_SEQUENCE
   { 13,	2,	1,	0,	"COPY", 0|(1<<TID::CheapAsAMove), 0x0ULL, NULL, NULL, NULL, OperandInfo6 },  // Inst #13 = COPY
+  { 14,	3,	1,	0,	"LDri", 0|(1<<TID::MayLoad), 0x0ULL, NULL, NULL, NULL, OperandInfo7 },  // Inst #14 = LDri
+  { 15,	3,	1,	0,	"LDrr", 0|(1<<TID::MayLoad), 0x0ULL, NULL, NULL, NULL, OperandInfo8 },  // Inst #15 = LDrr
+  { 16,	3,	0,	0,	"STri", 0|(1<<TID::MayStore), 0x0ULL, NULL, NULL, NULL, OperandInfo9 },  // Inst #16 = STri
+  { 17,	3,	0,	0,	"STrr", 0|(1<<TID::MayStore), 0x0ULL, NULL, NULL, NULL, OperandInfo8 },  // Inst #17 = STrr
 };
 } // End llvm namespace 

@@ -1,4 +1,4 @@
-//===- MDSP.td - Describe the Sparc Target Machine --------*- tablegen -*-===//
+//===- MDSP.td - Describe the MDSP Target Machine --------*- tablegen -*-===//
 // 
 //                     The LLVM Compiler Infrastructure
 //

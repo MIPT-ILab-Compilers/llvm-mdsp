@@ -12,7 +12,7 @@ LIBRARYNAME = LLVMMDSPCodeGen
 TARGET = MDSP
 
 BUILT_SOURCES = MDSPGenRegisterInfo.h.inc MDSPGenRegisterNames.inc MDSPGenRegisterInfo.inc\
-		MDSPGenInstrInfo.inc MDSPGenRegisterNames.inc\
+		MDSPGenInstrInfo.inc \
 		MDSPGenCallingConv.inc
 
 DIRS = TargetInfo
