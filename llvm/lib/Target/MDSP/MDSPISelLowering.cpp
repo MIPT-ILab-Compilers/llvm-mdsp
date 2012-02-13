@@ -43,3 +43,8 @@ MDSPTargetLowering::MDSPTargetLowering(TargetMachine &TM)
   addRegisterClass(MVT::i16, MDSP::GPRRegisterClass);
 
 }
+
+unsigned MDSPTargetLowering::getFunctionAlignment(const Function *F) const {
+    return 0;
+}
+

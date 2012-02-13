@@ -20,6 +20,10 @@ namespace llvm {
   class MDSPTargetLowering : public TargetLowering {
   public:
     MDSPTargetLowering(TargetMachine &TM);
+
+    /// getFunctionAlignment - Return the Log2 alignment of this function.
+    virtual unsigned getFunctionAlignment(const Function *F) const;
+
 /*
     virtual SDValue LowerOperation(SDValue Op, SelectionDAG &DAG) const;
 
@@ -47,9 +51,6 @@ namespace llvm {
                                       EVT VT) const;
 
     virtual bool isOffsetFoldingLegal(const GlobalAddressSDNode *GA) const;
-
-    /// getFunctionAlignment - Return the Log2 alignment of this function.
-    virtual unsigned getFunctionAlignment(const Function *F) const;
 
     virtual SDValue
       LowerFormalArguments(SDValue Chain,
