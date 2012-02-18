@@ -26,7 +26,8 @@ MDSPTargetMachine::MDSPTargetMachine (const Target &T, const std::string &TT,
 									  const std::string &FS)
   : llvm::LLVMTargetMachine	(T, TT),
     DataLayout			("e-P:32:32-F128:128:128"),
-    TLInfo(*this)
+    TLInfo(*this),
+    TSInfo(*this)
 {
 }
 

@@ -27,14 +27,17 @@ namespace llvm
 
 class MDSPTargetMachine : public LLVMTargetMachine
 {
-  const TargetData DataLayout;       // Calculates type size & alignment
-  MDSPTargetLowering TLInfo;
+  const TargetData 		DataLayout;       // Calculates type size & alignment
+  MDSPTargetLowering 	TLInfo;
+  MDSPFrameLowering 	FrameLowering;
+  MDSPSelectionDAGInfo 	TSInfo;
 
 public:
   MDSPTargetMachine (const Target &T, const std::string &TT, const std::string &FS);
 
-  virtual const TargetData       *getTargetData() const { return &DataLayout; }
-  virtual const MDSPTargetLowering *getTargetLowering() const { return &TLInfo; }
+  virtual const TargetData       	*getTargetData() 	 const { return &DataLayout; }
+  virtual const MDSPTargetLowering 	*getTargetLowering() const { return &TLInfo; }
+  virtual const TargetFrameLowering *getFrameLowering()  const { return &FrameLowering; }
 
   // Pass Pipeline Configuration
   virtual bool addInstSelector(PassManagerBase &PM, CodeGenOpt::Level OptLevel);
