@@ -4,56 +4,51 @@
 //
 //===----------------------------------------------------------------------===//
 
-class InstMDSP<dag outs, dag ins, string asmstr, list<dag> pattern> : Instruction {
-  field bits<32> Inst;
 
-  let Namespace = "MDSP";
+class InstMDSP <dag outs, dag ins, string asmstr, list<dag> pattern> : Instruction {
+ 	field bits<32> Inst;
 
-  bits<2> op;
-  let Inst{31-30} = op;               // Top two bits are the 'op' field
+ 	let Namespace = "MDSP";
+
+	bits <3> Type;
+ 	let Inst {31 - 29} = Type;      
   
-  dag OutOperandList = outs;
-  dag InOperandList = ins;
-  let AsmString   = asmstr;
-  let Pattern = pattern;
+	dag OutOperandList = outs;
+	dag InOperandList  = ins;
+	let AsmString      = asmstr;
+	let Pattern 	   = pattern;
 }
 
+class MOVEInst <bits <3> op, bits <2> s_d, dag outs, dag ins, string asmstr, list<dag> pattern> 
+	: InstMDSP <outs, ins, asmstr, pattern> {
+	
+	let Type = 0b000;
 
-// Specific F3 classes: SparcV8 manual, page 44
-//
+	bits <3> OP;
+	bits <3> AM;
+	bits <2> S_D;
+	let Inst {28 - 26} = OP;
+	let Inst {25 - 23} = AM;
+	let Inst {22 - 21} = S_D;
 
-class F3<dag outs, dag ins, string asmstr, list<dag> pattern>
-    : InstMDSP<outs, ins, asmstr, pattern> {
-  bits<5> rd;
-  bits<6> op3;
-  bits<5> rs1;
-  let op{1} = 1;   // Op = 2 or 3
-  let Inst{29-25} = rd;
-  let Inst{24-19} = op3;
-  let Inst{18-14} = rs1;
+	let OP = op;
+	let AM = 0b000;			// temporary step, because of tough addressing model
 }
 
-class F3_1<bits<2> opVal, bits<6> op3val, dag outs, dag ins,
-           string asmstr, list<dag> pattern> : F3<outs, ins, asmstr, pattern> {
-  bits<8> asi = 0; // asi not currently used
-  bits<5> rs2;
+class ALUInst  <bits <3> logic, bits <5> arithmetic, bits <3> shift, 
+		dag outs, dag ins, string asmstr, list<dag> pattern> 
+	: InstMDSP <outs, ins, asmstr, pattern> {
+	
+	let Type = 0b001;
 
-  let op         = opVal;
-  let op3        = op3val;
+	bits <3> Logic;
+	bits <5> Arithmetic;
+	bits <3> Shift;
+	bits <3> AM;
+	let Inst {28 - 26} = Logic;
+	let Inst {25 - 21} = Arithmetic;
+	let Inst {20 - 18} = Shift;
+	let Inst {17 - 15} = AM;
 
-  let Inst{13}   = 0;     // i field = 0
-  let Inst{12-5} = asi;   // address space identifier
-  let Inst{4-0}  = rs2;
+	let AM = 0b000;			// temporary step, because of tough addressing model
 }
-
-class F3_2<bits<2> opVal, bits<6> op3val, dag outs, dag ins, 
-           string asmstr, list<dag> pattern> : F3<outs, ins, asmstr, pattern> {
-  bits<13> simm13;
-
-  let op         = opVal;
-  let op3        = op3val;
-
-  let Inst{13}   = 1;     // i field = 1
-  let Inst{12-0} = simm13;
-}
-

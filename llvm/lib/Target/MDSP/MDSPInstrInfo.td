@@ -14,37 +14,58 @@
 
 include "MDSPInstrFormats.td"
 
+/*
 // Addressing modes.
 def ADDRrr : ComplexPattern<i32, 2, "SelectADDRrr", [], []>;
 def ADDRri : ComplexPattern<i32, 2, "SelectADDRri", [frameindex], []>;
-
+*/
 // Address operands
-def MEMrr : Operand<i32> {
-  let PrintMethod = "printMemOperand";
-  let MIOperandInfo = (ops GPR, GPR);
+def MEMrr : Operand<i16> {
+	let PrintMethod = "printMemOperand";
+	let MIOperandInfo = (ops APR, APR);
 }
-def MEMri : Operand<i32> {
-  let PrintMethod = "printMemOperand";
-  let MIOperandInfo = (ops GPR, i32imm);
+def MEMri : Operand<i16> {
+	let PrintMethod = "printMemOperand";
+	let MIOperandInfo = (ops APR, i16imm);
 }
+
+def MEMra  : Operand<i16> {				
+	let PrintMethod = "printMemOperand";
+	let MIOperandInfo = (ops APR);
+}
+
 /// ===========================================
 
-def LDrr   : F3_1<3, 0b000000,
-                  (outs GPR:$dst), (ins MEMrr:$addr),
-                  "ld [$addr], $dst",
-                  [(set GPR:$dst, (load ADDRrr:$addr))]>;
-def LDri   : F3_2<3, 0b000000,
-                  (outs GPR:$dst), (ins  MEMri:$addr),
-                  "ld [$addr], $dst",
-                  [(set GPR:$dst, (load ADDRri:$addr))]>;
-/// ===========================================
 
-def STrr   : F3_1<3, 0b000100,
-                  (outs), (ins MEMrr:$addr, GPR:$src),
-                  "st $src, [$addr]",
-                  [(store GPR:$src, ADDRrr:$addr)]>;
-def STri   : F3_2<3, 0b000100,
-                  (outs), (ins MEMri:$addr, GPR:$src),
-                  "st $src, [$addr]",
-                  [(store GPR:$src, ADDRri:$addr)]>;
+/// Ld instructions, p. 182
+
+/// ld 0, i16imm, rD  ; 	imm16 -> rD
+///
+def LDir : MOVEInst <0b110, 0b00, (outs GPR:$dst), (ins i16imm:$src),
+		 "ld 0, $src, $dst", []> {
+}
+
+/// ld 0, i16imm, aprD  ;  	imm16 -> aprD,
+///
+def LDia : MOVEInst <0b110, 0b01, (outs APR:$dst), (ins i16imm:$src),
+		 "ld 1, $src, $dst", []> {
+}
+
+
+/// B instructions, p. 147
+
+/// br rS, rD  ;	rS -> rD
+///
+def BRR :  MOVEInst <0b011, 0b00, (outs GPR:$dst), (ins GPR:$src),
+		 "brr $src, $dst", []> {
+}
+
+/// ALU instructions
+
+/// add rS1, rS2, rD
+///
+def ADDrr : ALUInst <0, 0b00001, 0, (outs GPR:$dst), (ins GPR:$src1, GPR:$src2),
+		 "add $src1, $src2, $dst", []> {
+}
+
 /// ===========================================
