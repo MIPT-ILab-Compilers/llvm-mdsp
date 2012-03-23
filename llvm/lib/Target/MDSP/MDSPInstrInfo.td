@@ -34,6 +34,16 @@ def MEMra  : Operand<i16> {
 	let MIOperandInfo = (ops APR);
 }
 
+/// ===========================================!!!
+def HI22 : SDNodeXForm<imm, [{
+  // Transformation function: shift the immediate value down into the low bits.
+  return CurDAG->getTargetConstant((unsigned)N->getZExtValue() >> 10, MVT::i32);
+}]>;
+
+def SETHIimm : PatLeaf<(imm), [{
+  return (((unsigned)N->getZExtValue() >> 10) << 10) ==
+         (unsigned)N->getZExtValue();
+}], HI22>;
 /// ===========================================
 
 
@@ -42,7 +52,7 @@ def MEMra  : Operand<i16> {
 /// ld 0, i16imm, rD  ; 	imm16 -> rD
 ///
 def LDir : MOVEInst <0b110, 0b00, (outs GPR:$dst), (ins i16imm:$src),
-		 "ld 0, $src, $dst", []> {
+		 "ld 0, $src, $dst", [(set GPR:$dst, SETHIimm:$src)]> {
 }
 
 /// ld 0, i16imm, aprD  ;  	imm16 -> aprD,
@@ -65,7 +75,7 @@ def BRR :  MOVEInst <0b011, 0b00, (outs GPR:$dst), (ins GPR:$src),
 /// add rS1, rS2, rD
 ///
 def ADDrr : ALUInst <0, 0b00001, 0, (outs GPR:$dst), (ins GPR:$src1, GPR:$src2),
-		 "add $src1, $src2, $dst", []> {
+		 "add $src1, $src2, $dst", [(set GPR:$dst, (add GPR:$src1, GPR:$src2))]> {
 }
 
 /// ===========================================
