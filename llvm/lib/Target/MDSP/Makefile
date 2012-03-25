@@ -11,10 +11,10 @@ LEVEL = ../../..
 LIBRARYNAME = LLVMMDSPCodeGen
 TARGET = MDSP
 
-BUILT_SOURCES = MDSPGenRegisterInfo.h.inc MDSPGenRegisterNames.inc MDSPGenRegisterInfo.inc\
-		MDSPGenInstrInfo.inc MDSPGenInstrNames.inc\
-		MDSPGenCallingConv.inc\
-		MDSPGenDAGISel.inc MDSPGenAsmWriter.inc
+BUILT_SOURCES = MDSPGenRegisterInfo.h.inc 	MDSPGenRegisterNames.inc \
+		MDSPGenRegisterInfo.inc 	MDSPGenInstrNames.inc \
+		MDSPGenInstrInfo.inc		MDSPGenAsmWriter.inc \
+		MDSPGenCallingConv.inc 		MDSPGenDAGISel.inc 
 
 DIRS = TargetInfo
 

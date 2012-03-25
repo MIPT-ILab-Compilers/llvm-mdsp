@@ -5,6 +5,10 @@
 #include "llvm/Target/TargetMachine.h"
 namespace llvm {
   class MDSPTargetMachine;
+  class FunctionPass;
+
+  FunctionPass *createMDSPISelDag(MDSPTargetMachine &TM);
+
 
   extern Target TheMDSPTarget;
 } // end namespace llvm

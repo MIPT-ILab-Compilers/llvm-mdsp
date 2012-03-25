@@ -19,6 +19,13 @@
 
 using namespace llvm;
 
+extern "C" void LLVMInitializeMDSPTarget()
+{
+  RegisterTargetMachine <MDSPTargetMachine> X(TheMDSPTarget);
+
+  RegisterAsmInfo<MDSPMCAsmInfo> A(TheMDSPTarget);
+}
+
 
 /// MDSPTargetMachine ctor - Create an ILP32 architecture model
 
@@ -26,28 +33,23 @@ MDSPTargetMachine::MDSPTargetMachine (const Target &T, const std::string &TT,
 									  const std::string &FS)
   : llvm::LLVMTargetMachine	(T, TT),
     DataLayout			("e-P:32:32-F128:128:128"),
-    TLInfo(*this),
-    TSInfo(*this)
+    TSInfo(*this),
+    TLInfo(*this)
 {
 }
 
 bool MDSPTargetMachine::addInstSelector(PassManagerBase &PM,
                                         CodeGenOpt::Level OptLevel)
 {
-  return false;
+	PM.add(::createMDSPISelDag(*this));
+	return false;
 }
-/*
+
 bool MDSPTargetMachine::addPreEmitPass(PassManagerBase &PM,
                                        CodeGenOpt::Level OptLevel)
 {
   return true;
 }
-*/
 
-extern "C" void LLVMInitializeMDSPTarget()
-{
-  RegisterTargetMachine <MDSPTargetMachine> X(TheMDSPTarget);
 
-  RegisterAsmInfo<MDSPMCAsmInfo> A(TheMDSPTarget);
-}
 
