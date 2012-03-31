@@ -25,7 +25,6 @@ extern "C" void LLVMInitializeMDSPTarget()
   RegisterAsmInfo<MDSPELFMCAsmInfo> A(TheMDSPTarget);
 }
 
-
 /// MDSPTargetMachine ctor - Create an ILP32 architecture model
 
 MDSPTargetMachine::MDSPTargetMachine (const Target &T, const std::string &TT, 
@@ -35,4 +34,15 @@ MDSPTargetMachine::MDSPTargetMachine (const Target &T, const std::string &TT,
       TLInfo(*this), TSInfo(*this), InstrInfo(), FrameLowering() {
 }
 
+bool MDSPTargetMachine::addInstSelector(PassManagerBase &PM,
+                                         CodeGenOpt::Level OptLevel) {
+  return false;
+}
 
+/// addPreEmitPass - This pass may be implemented by targets that want to run
+/// passes immediately before machine code is emitted.  This should return
+/// true if -print-machineinstrs should print out the code after the passes.
+bool MDSPTargetMachine::addPreEmitPass(PassManagerBase &PM,
+                                        CodeGenOpt::Level OptLevel){
+  return true;
+}
