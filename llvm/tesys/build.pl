@@ -97,7 +97,7 @@ elsif ($tool) {
 	$Options .= "\"ONLY_TOOLS=". join(" ", split(/,/, $tool)) . "\"";
 }
 else {
-	system "$LLVM_Root/configure --enable-targets=host,mdsp CC=clang CXX=clang++";
+	system "$LLVM_Root/configure --enable-targets=host,mdsp --enable-debug-runtime --enable-debug-symbols";
 
 	if ($?) {
 		print "ERROR[$?]: Cannot configure llvm!\n";

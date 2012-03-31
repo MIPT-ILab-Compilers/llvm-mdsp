@@ -25,17 +25,6 @@
 
 using namespace llvm;
 
-namespace llvm {
-namespace MDSP {
-    enum {
-        NoRegister,
-        R0,
-        R1,
-        NUM_TARGET_REGS
-    };
-}
-}
-
 MDSPRegisterInfo::MDSPRegisterInfo(const TargetInstrInfo &tii)
   : MDSPGenRegisterInfo(0, 0), TII(tii) {
 }

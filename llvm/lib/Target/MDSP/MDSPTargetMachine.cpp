@@ -18,6 +18,13 @@
 
 using namespace llvm;
 
+extern "C" void LLVMInitializeMDSPTarget()
+{
+  // Register the target.
+  RegisterTargetMachine <MDSPTargetMachine> X(TheMDSPTarget);
+  RegisterAsmInfo<MDSPELFMCAsmInfo> A(TheMDSPTarget);
+}
+
 
 /// MDSPTargetMachine ctor - Create an ILP32 architecture model
 
@@ -25,15 +32,7 @@ MDSPTargetMachine::MDSPTargetMachine (const Target &T, const std::string &TT,
         const std::string &FS)
   :   LLVMTargetMachine(T, TT),
       DataLayout			("e-P:32:32-F128:128:128"), 
-      TLInfo(*this), TSInfo(*this)//, InstrInfo(*this) 
-{
+      TLInfo(*this), TSInfo(*this), InstrInfo(), FrameLowering() {
 }
 
-
-extern "C" void LLVMInitializeMDSPTarget()
-{
-  // Register the target.
-  RegisterTargetMachine <MDSPTargetMachine> X(TheMDSPTarget);
-  RegisterAsmInfo<MDSPELFMCAsmInfo> A(TheMDSPTarget);
-}
 
