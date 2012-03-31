@@ -1,4 +1,4 @@
-//===- MDSPCallingConv.td - Calling Conventions Sparc -----*- tablegen -*-===//
+//===- MDSPCallingConv.td - Calling Conventions MDSP -----*- tablegen -*-===//
 // 
 //                     The LLVM Compiler Infrastructure
 //
