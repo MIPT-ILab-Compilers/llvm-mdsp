@@ -21,7 +21,7 @@ include "llvm/Target/Target.td"
 //===----------------------------------------------------------------------===//
 
 include "MDSPRegisterInfo.td"
-//include "MDSPCallingConv.td"
+include "MDSPCallingConv.td"
 include "MDSPInstrInfo.td"
 
 def MDSPInstrInfo : InstrInfo;

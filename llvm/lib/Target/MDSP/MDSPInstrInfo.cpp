@@ -18,12 +18,11 @@
 #include "llvm/CodeGen/MachineInstrBuilder.h"
 #include "llvm/CodeGen/MachineRegisterInfo.h"
 #include "llvm/Support/ErrorHandling.h"
-//#include "MDSPGenInstrInfo.inc"
+#include "MDSPGenInstrInfo.inc"
 //#include "MDSPMachineFunctionInfo.h"
 using namespace llvm;
 
 MDSPInstrInfo::MDSPInstrInfo() 
   : TargetInstrInfoImpl(MDSPInsts, array_lengthof(MDSPInsts)),
-    RI(ST, *this){
-
+    RI(*this){
 }

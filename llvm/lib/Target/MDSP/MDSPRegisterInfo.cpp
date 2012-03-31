@@ -22,9 +22,57 @@
 #include "llvm/Type.h"
 #include "llvm/ADT/BitVector.h"
 #include "llvm/ADT/STLExtras.h"
+
 using namespace llvm;
 
-MDSPRegisterInfo::MDSPRegisterInfo(const TargetInstrInfo &tii)
-  : MDSPGenRegisterInfo(MDSP::ADJCALLSTACKDOWN, MDSP::ADJCALLSTACKUP), TII(tii) {
-
+namespace llvm {
+namespace MDSP {
+    enum {
+        NoRegister,
+        R0,
+        R1,
+        NUM_TARGET_REGS
+    };
 }
+}
+
+MDSPRegisterInfo::MDSPRegisterInfo(const TargetInstrInfo &tii)
+  : MDSPGenRegisterInfo(0, 0), TII(tii) {
+}
+
+const unsigned* MDSPRegisterInfo::getCalleeSavedRegs(const MachineFunction *MF)
+                                                                         const {
+  static const unsigned CalleeSavedRegs[] = { 0 };
+  return CalleeSavedRegs;
+}
+
+BitVector MDSPRegisterInfo::getReservedRegs(const MachineFunction &MF) const {
+  BitVector Reserved(0);
+  return Reserved;
+}
+
+void MDSPRegisterInfo::
+eliminateCallFramePseudoInstr(MachineFunction &MF, MachineBasicBlock &MBB,
+                              MachineBasicBlock::iterator I) const {
+}
+
+void MDSPRegisterInfo::
+eliminateFrameIndex(MachineBasicBlock::iterator II,
+                                       int SPAdj, RegScavenger *RS) const {
+}
+
+unsigned MDSPRegisterInfo::getFrameRegister(const MachineFunction &MF) const {
+  //return MDSP::R29;
+  return 0;
+}
+
+unsigned MDSPRegisterInfo::getRARegister() const {
+  //return MDSP::R30;
+  return 0;
+}
+
+int MDSPRegisterInfo::getDwarfRegNum(unsigned RegNum, bool isEH) const {
+  return MDSPGenRegisterInfo::getDwarfRegNumFull(RegNum, 0);
+}
+
+#include "MDSPGenRegisterInfo.inc"

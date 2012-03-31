@@ -16,9 +16,9 @@
 
 
 #include "MDSPInstrInfo.h"
-//#include "MDSPISelLowering.h"
-//#include "MDSPFrameLowering.h"
-//#include "MDSPSelectionDAGInfo.h"
+#include "MDSPISelLowering.h"
+#include "MDSPFrameLowering.h"
+#include "MDSPSelectionDAGInfo.h"
 
 #include "llvm/Target/TargetMachine.h"
 #include "llvm/Target/TargetData.h"
@@ -29,8 +29,8 @@ namespace llvm
 
 class MDSPTargetMachine : public LLVMTargetMachine {
   const TargetData DataLayout;       // Calculates type size & alignment
-  MDSPInstrInfo InstrInfo;
-  //TargetFrameInfo FrameInfo;
+//  MDSPInstrInfo InstrInfo;
+//  TargetFrameInfo FrameInfo;
   MDSPTargetLowering TLInfo;
   MDSPSelectionDAGInfo TSInfo;
 
@@ -38,13 +38,13 @@ public:
   MDSPTargetMachine (const Target &T, const std::string &TT, 
           const std::string &FS);
 
-  virtual const MDSPInstrInfo *getInstrInfo() const { return &InstrInfo; }
-  virtual const TargetFrameLowering  *getFrameLowering() const {
+//  virtual const MDSPInstrInfo *getInstrInfo() const { return &InstrInfo; }
+  /*virtual const TargetFrameLowering  *getFrameLowering() const {
     return &FrameLowering;
-  }
-  virtual const MDSPRegisterInfo *getRegisterInfo() const {
+  }*/
+  /*virtual const MDSPRegisterInfo *getRegisterInfo() const {
     return &InstrInfo.getRegisterInfo();
-  }
+  }*/
   virtual const MDSPTargetLowering* getTargetLowering() const {
     return &TLInfo;
   }
@@ -55,15 +55,8 @@ public:
 
   // Pass Pipeline Configuration
   virtual bool addInstSelector(PassManagerBase &PM, CodeGenOpt::Level OptLevel);
-  virtual bool addPreEmitPass(PassManagerBase &PM, CodeGenOpt::Level OptLevel);
-  /* virtual const MDSPInstrInfo *getInstrInfo() const { return &InstrInfo; }
-  virtual const TargetFrameInfo *getFrameInfo() const { return &FrameInfo; }
+//  virtual bool addPreEmitPass(PassManagerBase &PM, CodeGenOpt::Level OptLevel);
   
-  virtual const TargetRegisterInfo *getRegisterInfo() const {
-      return &InstrInfo.getRegisterInfo();
-  }
-  virtual const TargetData *getTargetData() const { return &DataLayout; }
-  */
 };
 
 } // end namespace llvm

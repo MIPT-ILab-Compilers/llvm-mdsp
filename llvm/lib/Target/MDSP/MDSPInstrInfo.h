@@ -22,10 +22,10 @@ namespace llvm {
 class MDSPInstrInfo : public TargetInstrInfoImpl {
    const MDSPRegisterInfo RI;
 public:
-   
+   explicit MDSPInstrInfo(void); 
    virtual const MDSPRegisterInfo &getRegisterInfo() const { return RI; }
 
-}
+};
 
 }
 

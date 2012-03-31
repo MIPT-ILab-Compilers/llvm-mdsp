@@ -15,7 +15,6 @@
 #include "MDSPTargetMachine.h"
 #include "llvm/PassManager.h"
 #include "llvm/Target/TargetRegistry.h"
-//#include "llvm/Module.h"
 
 using namespace llvm;
 
@@ -26,8 +25,7 @@ MDSPTargetMachine::MDSPTargetMachine (const Target &T, const std::string &TT,
         const std::string &FS)
   :   LLVMTargetMachine(T, TT),
       DataLayout			("e-P:32:32-F128:128:128"), 
-      TLInfo(*this), TSInfo(*this),
-   // FrameLowering(Subtarget)
+      TLInfo(*this), TSInfo(*this)//, InstrInfo(*this) 
 {
 }
 

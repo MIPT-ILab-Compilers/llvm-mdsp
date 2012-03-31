@@ -7,7 +7,7 @@
 // 
 //===----------------------------------------------------------------------===//
 
-class InstMDSP<dag outs, dag ins, string asmstr, list<dag> pattern> : Instuction {
+class InstMDSP<dag outs, dag ins, string asmstr, list<dag> pattern> : Instruction {
   field bits<32> Inst;
 
   let Namespace = "MDSP";
@@ -23,7 +23,8 @@ class InstMDSP<dag outs, dag ins, string asmstr, list<dag> pattern> : Instuction
 
 class MOVE<dag outs, dag ins, string asmstr, list<dag> pattern> 
    : InstMDSP <outs, ins, asmstr, pattern> {
-   bits<3> op, am; //operation code, addressing mode
+   bits<3> op; //operation code
+   bits<3> am; //adressing mode
    bits<2> sd; //multi-purpose, source/dest
    let type = 0;
 }
