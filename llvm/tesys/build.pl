@@ -97,7 +97,7 @@ elsif ($tool) {
 	$Options .= "\"ONLY_TOOLS=". join(" ", split(/,/, $tool)) . "\"";
 }
 else {
-	system "$LLVM_Root/configure";
+	system "$LLVM_Root/configure --enable-targets=host,mdsp CC=clang CXX=clang++";
 
 	if ($?) {
 		print "ERROR[$?]: Cannot configure llvm!\n";
@@ -105,7 +105,7 @@ else {
 	}
 }
 
-$cmd = "make -j 2 -f $LLVM_Root/Makefile $Options";
+$cmd = "make -j6 -f $LLVM_Root/Makefile $Options";
 
 open BuildReport, $LogPath;
 print BuildReport "Date:\t".`date`;
