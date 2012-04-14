@@ -14,6 +14,7 @@
 
 #include "MDSPISelLowering.h"
 #include "MDSPTargetMachine.h"
+#include "MDSPMachineFunctionInfo.h"
 #include "llvm/DerivedTypes.h"
 #include "llvm/Function.h"
 #include "llvm/Module.h"
@@ -45,6 +46,6 @@ MDSPTargetLowering::MDSPTargetLowering(TargetMachine &TM)
 }
 
 unsigned MDSPTargetLowering::getFunctionAlignment(const Function *F) const {
-    return 0;
+    return 2;
 }
 

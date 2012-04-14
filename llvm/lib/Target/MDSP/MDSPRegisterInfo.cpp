@@ -10,6 +10,7 @@
 
 #include "MDSP.h"
 #include "MDSPRegisterInfo.h"
+#include "MDSPSubtarget.h"
 #include "llvm/CodeGen/MachineInstrBuilder.h"
 #include "llvm/CodeGen/MachineFunction.h"
 #include "llvm/CodeGen/MachineFrameInfo.h"
@@ -22,8 +23,8 @@
 
 using namespace llvm;
 
-MDSPRegisterInfo::MDSPRegisterInfo(const TargetInstrInfo &tii)
-             : MDSPGenRegisterInfo(-1, -1), TII(tii) {}
+MDSPRegisterInfo::MDSPRegisterInfo(MDSPSubtarget &st, const TargetInstrInfo &tii)
+             : MDSPGenRegisterInfo(-1, -1),Subtarget (st), TII(tii) {}
 
 const unsigned* MDSPRegisterInfo::getCalleeSavedRegs(const MachineFunction *MF) const {
   static const unsigned CalleeSavedRegs[] = { 0 };

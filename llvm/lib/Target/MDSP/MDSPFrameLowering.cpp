@@ -13,6 +13,7 @@
 
 #include "MDSPFrameLowering.h"
 #include "MDSPInstrInfo.h"
+#include "MDSPMachineFunctionInfo.h"
 #include "llvm/Function.h"
 #include "llvm/CodeGen/MachineFrameInfo.h"
 #include "llvm/CodeGen/MachineFunction.h"

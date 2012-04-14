@@ -17,7 +17,7 @@
 
 namespace llvm {
 
-  class MDSPTargetLowering : public TargetLowering {
+  class    : public TargetLowering {
   public:
     MDSPTargetLowering(TargetMachine &TM);
 

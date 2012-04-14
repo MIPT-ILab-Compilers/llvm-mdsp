@@ -32,9 +32,12 @@ extern "C" void LLVMInitializeMDSPTarget()
 MDSPTargetMachine::MDSPTargetMachine (const Target &T, const std::string &TT,
 									  const std::string &FS)
   : llvm::LLVMTargetMachine	(T, TT),
-    DataLayout			("e-P:32:32-F128:128:128"),
-    TSInfo(*this),
-    TLInfo(*this)
+    Subtarget		(TT, FS),
+    DataLayout		(Subtarget.getDataLayout()),
+    TLInfo			(*this),
+    TSInfo			(*this),
+    InstrInfo 		(Subtarget),
+    FrameLowering 	(Subtarget)
 {
 }
 

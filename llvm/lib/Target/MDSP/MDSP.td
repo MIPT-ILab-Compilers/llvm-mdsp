@@ -17,6 +17,11 @@
 
 include "llvm/Target/Target.td"
 
+ 
+def FeatureV9
+  : SubtargetFeature<"v9", "Is", "true",
+                     "Enable SPARC-V9 instructions">;
+
 //===----------------------------------------------------------------------===//
 // Register File, Calling Conv, Instruction Descriptions
 //===----------------------------------------------------------------------===//
@@ -27,6 +32,13 @@ include "MDSPInstrInfo.td"
 
 def MDSPInstrInfo : InstrInfo;
 
+
+class Proc<string Name, list<SubtargetFeature> Features>
+ : Processor<Name, NoItineraries, Features>;
+
+
+def : Proc<"v9",              [FeatureV9]>;
+
 //===---------------------------------------------------------------------===//
 // Define target what we're implementing
 //===---------------------------------------------------------------------===//
@@ -34,4 +46,5 @@ def MDSPInstrInfo : InstrInfo;
 def MDSP : Target {
 	let InstructionSet = MDSPInstrInfo;
 }
+
 

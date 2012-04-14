@@ -16,13 +16,15 @@
 
 namespace llvm {
 
+class MDSPSubtarget;
 class TargetInstrInfo;
 class Type;
 
 struct MDSPRegisterInfo : public MDSPGenRegisterInfo {
+  MDSPSubtarget &Subtarget;
   const TargetInstrInfo &TII;
 
-  MDSPRegisterInfo(const TargetInstrInfo &tii);
+  MDSPRegisterInfo(MDSPSubtarget &st, const TargetInstrInfo &tii);
 
   /// Code Generation virtual methods...
   const unsigned *getCalleeSavedRegs(const MachineFunction *MF = 0) const;

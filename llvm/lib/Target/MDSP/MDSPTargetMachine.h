@@ -18,6 +18,7 @@
 #include "MDSPISelLowering.h"
 #include "MDSPFrameLowering.h"
 #include "MDSPSelectionDAGInfo.h"
+#include "MDSPSubtarget.h"
 #include "llvm/Target/TargetMachine.h"
 #include "llvm/Target/TargetData.h"
 #include "llvm/Target/TargetFrameLowering.h"
@@ -25,19 +26,29 @@
 namespace llvm {
 
 class MDSPTargetMachine : public LLVMTargetMachine {
+  MDSPSubtarget 		Subtarget;
   const TargetData 		DataLayout;       // Calculates type size & alignment
-  MDSPSelectionDAGInfo 	TSInfo;
   MDSPTargetLowering 	TLInfo;
+  MDSPSelectionDAGInfo 	TSInfo;
+  MDSPInstrInfo 		InstrInfo;
   MDSPFrameLowering 	FrameLowering;
 
 
 public:
   MDSPTargetMachine (const Target &T, const std::string &TT, const std::string &FS);
 
-  virtual const TargetData       		*getTargetData 	     () const { return &DataLayout; }
-  virtual const MDSPTargetLowering 		*getTargetLowering   () const { return &TLInfo; }
+  virtual const MDSPInstrInfo 			*getInstrInfo		 () const { return &InstrInfo; }
   virtual const TargetFrameLowering 	*getFrameLowering    () const { return &FrameLowering; }
+  virtual const MDSPSubtarget   		*getSubtargetImpl	 () const { return &Subtarget; }
+  virtual const MDSPRegisterInfo 		*getRegisterInfo	 () const
+  	  	  	  	  	  	  	  	  	        { return &InstrInfo.getRegisterInfo(); }
+  virtual const MDSPTargetLowering 		*getTargetLowering   () const { return &TLInfo; }
   virtual const MDSPSelectionDAGInfo	*getSelectionDAGInfo () const { return &TSInfo; }
+  virtual const TargetData       		*getTargetData 	     () const { return &DataLayout; }
+
+
+
+
 
   // Pass Pipeline Configuration
   virtual bool addInstSelector(PassManagerBase &PM, CodeGenOpt::Level OptLevel);

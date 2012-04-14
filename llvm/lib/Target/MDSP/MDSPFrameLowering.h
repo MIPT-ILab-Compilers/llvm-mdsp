@@ -15,14 +15,17 @@
 #define MDSPFRAMEINFO_H
 
 #include "MDSP.h"
+#include "MDSPSubtarget.h"
 #include "llvm/Target/TargetFrameLowering.h"
 
 namespace llvm {
+class MDSPSubtarget;
 
 class MDSPFrameLowering : public TargetFrameLowering {
+	  const MDSPSubtarget &STI;
 public:
-  explicit MDSPFrameLowering(void)
-    : TargetFrameLowering(TargetFrameLowering::StackGrowsDown, 8, 0) {
+  explicit MDSPFrameLowering(const MDSPSubtarget &sti)
+    : TargetFrameLowering(TargetFrameLowering::StackGrowsDown, 8, 0),  STI(sti) {
   }
 
   /// emitProlog/emitEpilog - These methods insert prolog and epilog code into
