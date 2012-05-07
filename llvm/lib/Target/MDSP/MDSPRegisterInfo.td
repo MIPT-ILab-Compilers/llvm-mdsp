@@ -22,21 +22,21 @@ class GPR<bits<5> num, string n> : MDSPReg<n> {
 // General purpose register set
 def R0 : GPR< 0, "R0">, DwarfRegNum<[0]>;
 def R1 : GPR< 1, "R1">, DwarfRegNum<[1]>;
-/*def R2 : RegGPR< 2, "R2">, DwarfRegNum<[2]>;
-def R3 : RegGPR< 3, "R3">, DwarfRegNum<[3]>;
-def R4 : RegGPR< 4, "R4">, DwarfRegNum<[4]>;
-def R5 : RegGPR< 5, "R5">, DwarfRegNum<[5]>;
-def R6 : RegGPR< 6, "R6">, DwarfRegNum<[6]>;
-def R7 : RegGPR< 7, "R7">, DwarfRegNum<[7]>;
-def R8 : RegGPR< 8, "R8">, DwarfRegNum<[8]>;
-def R9 : RegGPR< 9, "R9">, DwarfRegNum<[9]>;
-def R10 : RegGPR< 10, "R10">, DwarfRegNum<[10]>;
-def R11 : RegGPR< 11, "R11">, DwarfRegNum<[11]>;
-def R12 : RegGPR< 12, "R12">, DwarfRegNum<[12]>;
-def R13 : RegGPR< 13, "R13">, DwarfRegNum<[13]>;
-def R14 : RegGPR< 14, "R14">, DwarfRegNum<[14]>;
-def R15 : RegGPR< 15, "R15">, DwarfRegNum<[15]>;
-def R16 : RegGPR< 16, "R16">, DwarfRegNum<[16]>;
+def R2 : GPR< 2, "R2">, DwarfRegNum<[2]>;
+def R3 : GPR< 3, "R3">, DwarfRegNum<[3]>;
+def R4 : GPR< 4, "R4">, DwarfRegNum<[4]>;
+def R5 : GPR< 5, "R5">, DwarfRegNum<[5]>;
+def R6 : GPR< 6, "R6">, DwarfRegNum<[6]>;
+def R7 : GPR< 7, "R7">, DwarfRegNum<[7]>;
+def R8 : GPR< 8, "R8">, DwarfRegNum<[8]>;
+def R9 : GPR< 9, "R9">, DwarfRegNum<[9]>;
+def R10 : GPR< 10, "R10">, DwarfRegNum<[10]>;
+def R11 : GPR< 11, "R11">, DwarfRegNum<[11]>;
+def R12 : GPR< 12, "R12">, DwarfRegNum<[12]>;
+def R13 : GPR< 13, "R13">, DwarfRegNum<[13]>;
+def R14 : GPR< 14, "R14">, DwarfRegNum<[14]>;
+def R15 : GPR< 15, "R15">, DwarfRegNum<[15]>;
+def R16 : GPR< 16, "R16">, DwarfRegNum<[16]>;
 def R17 : GPR< 17, "R17">, DwarfRegNum<[17]>;
 def R18 : GPR< 18, "R18">, DwarfRegNum<[18]>;
 def R19 : GPR< 19, "R19">, DwarfRegNum<[19]>;
@@ -51,12 +51,10 @@ def R27 : GPR< 27, "R27">, DwarfRegNum<[27]>;
 def R28 : GPR< 28, "R28">, DwarfRegNum<[28]>;
 def R29 : GPR< 29, "R29">, DwarfRegNum<[29]>;
 def R30 : GPR< 30, "R30">, DwarfRegNum<[30]>;
-def R31 : RegGPR< 31, "R31">, DwarfRegNum<[31]>;
-*/
+def R31 : GPR< 31, "R31">, DwarfRegNum<[31]>;
 
-/*def GPR : RegisterClass<"MDSP", [i16], 16, 
+def GPR : RegisterClass<"MDSP", [i16], 16, 
      [R0, R1, R2, R3, R4, R5, R6, R7, R7, R8, R9, R10, R11, R12, R13, R14, R15, 
      R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, 
      R31]>;
-*/
-def GPR : RegisterClass<"MDSP", [i16], 16, [R0, R1]>;
+

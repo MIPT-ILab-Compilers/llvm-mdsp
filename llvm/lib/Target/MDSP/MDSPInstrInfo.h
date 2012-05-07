@@ -20,11 +20,17 @@
 namespace llvm {
 
 class MDSPInstrInfo : public TargetInstrInfoImpl {
-   const MDSPRegisterInfo RI;
+  const MDSPRegisterInfo RI;
 public:
-   explicit MDSPInstrInfo(void); 
-   virtual const MDSPRegisterInfo &getRegisterInfo() const { return RI; }
+  explicit MDSPInstrInfo(void); 
 
+  /// getRegisterInfo - TargetInstrInfo is a superset of MRegister info.  As
+  /// such, whenever a client has an instance of instruction info, it should
+  /// always be able to get register info as well (through this method).
+  ///
+  virtual const MDSPRegisterInfo &getRegisterInfo() const { return RI; }
+
+  unsigned getGlobalBaseReg(MachineFunction *MF) const;
 };
 
 }

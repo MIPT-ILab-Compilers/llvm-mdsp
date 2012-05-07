@@ -31,11 +31,12 @@ MDSPTargetMachine::MDSPTargetMachine (const Target &T, const std::string &TT,
         const std::string &FS)
   :   LLVMTargetMachine(T, TT),
       DataLayout			("e-P:32:32-F128:128:128"), 
-      TLInfo(*this), TSInfo(*this), InstrInfo(), FrameLowering() {
+      TLInfo(*this), TSInfo(*this), InstrInfo(*this), FrameLowering(*this) {
 }
 
 bool MDSPTargetMachine::addInstSelector(PassManagerBase &PM,
                                          CodeGenOpt::Level OptLevel) {
+  PM.add(createMDSPISelDag(*this));
   return false;
 }
 

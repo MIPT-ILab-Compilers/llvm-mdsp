@@ -12,13 +12,17 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef MDSP_H
-#define MDSP_H
+#ifndef TARGET_MDSP_H
+#define TARGET_MDSP_H
 
 #include "llvm/Target/TargetMachine.h"
 
 namespace llvm {
+  class FunctionPass;
   class MDSPTargetMachine;
+  class formatted_raw_ostream;
+
+  FunctionPass *createMDSPISelDag(MDSPTargetMachine &TM);
 
   extern Target TheMDSPTarget;
 } // end namespace llvm

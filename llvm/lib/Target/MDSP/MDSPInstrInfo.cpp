@@ -19,10 +19,33 @@
 #include "llvm/CodeGen/MachineRegisterInfo.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "MDSPGenInstrInfo.inc"
-//#include "MDSPMachineFunctionInfo.h"
+#include "MDSPMachineFunctionInfo.h"
 using namespace llvm;
 
 MDSPInstrInfo::MDSPInstrInfo() 
   : TargetInstrInfoImpl(MDSPInsts, array_lengthof(MDSPInsts)),
     RI(*this){
 }
+/* 
+unsigned MDSPInstrInfo::getGlobalBaseReg(MachineFunction *MF) const
+{
+  MDSPMachineFunctionInfo *MDSPFI = MF->getInfo<MDSPMachineFunctionInfo>();
+  unsigned GlobalBaseReg = MDSPFI->getGlobalBaseReg();
+  if (GlobalBaseReg != 0)
+    return GlobalBaseReg;
+
+  // Insert the set of GlobalBaseReg into the first MBB of the function
+  MachineBasicBlock &FirstMBB = MF->front();
+  MachineBasicBlock::iterator MBBI = FirstMBB.begin();
+  MachineRegisterInfo &RegInfo = MF->getRegInfo();
+
+  GlobalBaseReg = RegInfo.createVirtualRegister(&MDSP::GPRRegClass);
+
+
+  DebugLoc dl;
+
+  BuildMI(FirstMBB, MBBI, dl, get(MDSP::GETPCX), GlobalBaseReg);
+  MDSPFI->setGlobalBaseReg(GlobalBaseReg);
+  return GlobalBaseReg;
+}
+*/

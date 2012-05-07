@@ -19,17 +19,14 @@
 #include "MDSPISelLowering.h"
 #include "MDSPFrameLowering.h"
 #include "MDSPSelectionDAGInfo.h"
-
 #include "llvm/Target/TargetMachine.h"
 #include "llvm/Target/TargetData.h"
 #include "llvm/Target/TargetFrameLowering.h"
 
-namespace llvm
-{
+namespace llvm {
 
 class MDSPTargetMachine : public LLVMTargetMachine {
   const TargetData DataLayout;       // Calculates type size & alignment
-//  TargetFrameInfo FrameInfo;
   MDSPTargetLowering TLInfo;
   MDSPSelectionDAGInfo TSInfo;
   MDSPInstrInfo InstrInfo;
